@@ -4,6 +4,8 @@ global with sharing class BillingAPI {
     @HttpPost
     global static ResponseWrapper createPaymentMethod() {
         //TODO - check if there is an existing card with autopay, else set this one
+
+        //test
         RestRequest req = RestContext.request;
         Blob body = req.requestBody;
         String paymentMethodRequest = body.toString();
