@@ -2,7 +2,7 @@
 name: Validate PR on development branch
 
 permissions:
-      actions: read
+      actions: write
 
 # Definition when the workflow should run
 on:
