@@ -1,5 +1,5 @@
 # Unique name for this workflow
-name: Validate PR on integration branch
+name: Validate PR on development branch
 
 # Definition when the workflow should run
 on:
@@ -16,7 +16,7 @@ on:
 
 # Jobs to be executed
 jobs:
-    validate-deployment-on-integration-org:
+    validate-deployment-on-development-org:
         runs-on: ubuntu-latest
         if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
@@ -81,15 +81,15 @@ jobs:
             - name: 'Installing SFDX scanner'
               run: sfdx plugins:install @salesforce/sfdx-scanner
 
-            # Get the Integration Org SFDX URL and store it in a text file
-            - name: 'Populate auth file with SFDX_URL secret of integration org'
+            # Get the development Org SFDX URL and store it in a text file
+            - name: 'Populate auth file with SFDX_URL secret of development org'
               shell: bash
               run: |
-                  echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+                  echo ${{ secrets.SFDX_DEVELOPMENT_URL}} > ./SFDX_DEVELOPMENT_URL.txt
 
             # Authenticate to org using the URL stored in the text file
-            - name: 'Authenticate to Integration Org'
-              run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+            - name: 'Authenticate to Development Org'
+              run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
 
             # We use SFDX Git Delta to create a directory with only the metadata that has changed, this allows us
             # to deploy only those changes, as opposed to deploying the entire branch. This helps reducing deployment times
