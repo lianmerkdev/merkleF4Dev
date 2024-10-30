@@ -1,6 +1,9 @@
 # Unique name for this workflow
 name: Validate PR on development branch
 
+permissions:
+      contents: write
+
 # Definition when the workflow should run
 on:
     pull_request:
